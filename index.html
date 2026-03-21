@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fob Fob Fob 🗝️</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Gaegu:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fefcf7;
+    --terracotta: #c4603a;
+    --terracotta-light: #e8896a;
+    --sage: #7a9e7e;
+    --sage-light: #b5d4b8;
+    --dusty-pink: #e8c4b4;
+    --brown: #4a3728;
+    --brown-light: #8b6553;
+    --yellow: #f2d675;
+    --yellow-deep: #e6b84a;
+    --ink: #2a1f1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23c4603a' opacity='0.7'/%3E%3C/svg%3E"), auto;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 20px 60px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .hero-bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  .blob1 { width: 500px; height: 500px; background: var(--dusty-pink); opacity: 0.45; top: -100px; left: -150px; }
+  .blob2 { width: 400px; height: 400px; background: var(--sage-light); opacity: 0.35; bottom: -80px; right: -100px; }
+  .blob3 { width: 300px; height: 300px; background: var(--yellow); opacity: 0.3; top: 40%; left: 60%; }
+
+  .wiggle-border {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 18px;
+    background: var(--terracotta);
+  }
+
+  .stamp {
+    background: var(--terracotta);
+    color: var(--cream);
+    font-family: 'Gaegu', cursive;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  /* MASCOT */
+  .mascot-wrap {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 10px;
+    animation: floaty 4s ease-in-out infinite;
+  }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-14px) rotate(2deg); }
+  }
+
+  .mascot-wrap svg {
+    filter: drop-shadow(4px 8px 16px rgba(74,55,40,0.18));
+  }
+
+  /* TITLE */
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(68px, 13vw, 148px);
+    font-weight: 900;
+    line-height: 0.88;
+    text-align: center;
+    color: var(--brown);
+    position: relative;
+    z-index: 2;
+    animation: slideUp 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title .accent { color: var(--terracotta); font-style: italic; }
+
+  .hero-tagline {
+    font-family: 'Gaegu', cursive;
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--brown-light);
+    margin-top: 18px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: slideUp 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
+  }
+
+  .hero-cta {
+    margin-top: 36px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    animation: slideUp 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.6s both;
+  }
+
+  .hero-badge {
+    background: var(--terracotta);
+    color: var(--cream);
+    font-family: 'Gaegu', cursive;
+    font-size: 20px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0 var(--brown);
+  }
+
+  .hero-badge-outline {
+    background: transparent;
+    color: var(--brown);
+    font-family: 'Gaegu', cursive;
+    font-size: 20px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: 2.5px solid var(--brown);
+  }
+
+  /* SERVICES STRIP */
+  .services-strip {
+    background: var(--brown);
+    color: var(--cream);
+    padding: 18px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .strip-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+  }
+  .strip-item {
+    font-family: 'Gaegu', cursive;
+    font-size: 20px;
+    padding: 0 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .strip-dot { color: var(--yellow); font-size: 24px; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 100px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) { .about { grid-template-columns: 1fr; gap: 40px; } }
+
+  .about-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 6vw, 62px);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--brown);
+    margin-bottom: 20px;
+  }
+  .about-text h2 em { color: var(--terracotta); font-style: italic; }
+
+  .about-text p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--brown-light);
+    margin-bottom: 16px;
+  }
+
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+  .badge {
+    font-family: 'Gaegu', cursive;
+    font-size: 16px;
+    background: var(--yellow);
+    color: var(--brown);
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 2px solid var(--brown);
+  }
+
+  .about-card {
+    background: var(--warm-white);
+    border-radius: 28px;
+    padding: 40px;
+    border: 2px solid var(--dusty-pink);
+    position: relative;
+  }
+  .about-card::before {
+    content: '✦';
+    position: absolute;
+    top: -14px; right: 28px;
+    font-size: 28px;
+    color: var(--terracotta);
+    background: var(--warm-white);
+    padding: 0 6px;
+  }
+
+  .pricing-service { margin-bottom: 28px; }
+  .pricing-service:last-child { margin-bottom: 0; }
+  .pricing-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .pricing-icon {
+    width: 32px; height: 32px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .pricing-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--brown);
+  }
+  .pricing-tiers {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-left: 42px;
+  }
+  .tier {
+    background: var(--cream);
+    border: 1.5px solid var(--dusty-pink);
+    border-radius: 12px;
+    padding: 8px 14px;
+    text-align: center;
+    min-width: 80px;
+  }
+  .tier-qty {
+    font-family: 'Gaegu', cursive;
+    font-size: 13px;
+    color: var(--brown-light);
+    display: block;
+  }
+  .tier-price {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--terracotta);
+    display: block;
+  }
+  .tier-save {
+    font-family: 'Gaegu', cursive;
+    font-size: 11px;
+    color: var(--sage);
+    display: block;
+  }
+  .tier.best {
+    background: var(--yellow);
+    border-color: var(--yellow-deep);
+  }
+  .pricing-divider {
+    border: none;
+    border-top: 1.5px dashed var(--dusty-pink);
+    margin: 20px 0;
+  }
+
+  /* ── PHOTOS ── */
+  .photos-section {
+    padding: 80px 20px;
+    background: var(--warm-white);
+  }
+  .section-label {
+    text-align: center;
+    font-family: 'Gaegu', cursive;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    color: var(--brown);
+    margin-bottom: 50px;
+  }
+  .section-title em { color: var(--terracotta); font-style: italic; }
+
+  .photos-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  @media (max-width: 700px) { .photos-grid { grid-template-columns: 1fr 1fr; } }
+
+  .photo-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background: var(--dusty-pink);
+    aspect-ratio: 1;
+  }
+  .photo-card:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+
+  .photo-card svg { width: 100%; height: 100%; display: block; }
+
+  .photo-label {
+    position: absolute;
+    bottom: 14px; left: 14px;
+    background: var(--cream);
+    font-family: 'Gaegu', cursive;
+    font-size: 15px;
+    color: var(--brown);
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: 1.5px solid var(--brown);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 100px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+  @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
+
+  .step {
+    background: var(--warm-white);
+    border-radius: 24px;
+    padding: 36px 24px;
+    border: 2px solid var(--dusty-pink);
+    position: relative;
+  }
+
+  .step-num {
+    width: 52px; height: 52px;
+    background: var(--terracotta);
+    color: var(--cream);
+    border-radius: 50%;
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    box-shadow: 3px 3px 0 var(--brown);
+  }
+
+  .step h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 10px;
+  }
+  .step p { font-size: 15px; color: var(--brown-light); line-height: 1.65; }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: var(--brown);
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, var(--terracotta) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, var(--sage) 0%, transparent 60%);
+    opacity: 0.2;
+  }
+
+  .cta-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 900;
+    color: var(--cream);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 16px;
+  }
+  .cta-section h2 em { color: var(--yellow); font-style: italic; }
+
+  .cta-section p {
+    font-family: 'Gaegu', cursive;
+    font-size: 22px;
+    color: var(--dusty-pink);
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .contact-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  .contact-pill {
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Gaegu', cursive;
+    font-size: 18px;
+    padding: 14px 28px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 32px 20px;
+    font-family: 'Gaegu', cursive;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+  footer span { color: var(--terracotta); }
+
+  /* ANIMATIONS */
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="wiggle-border"></div>
+  <div class="hero-bg-blob blob1"></div>
+  <div class="hero-bg-blob blob2"></div>
+  <div class="hero-bg-blob blob3"></div>
+
+  <div class="stamp">🗝️ Toronto's Condo Fob Specialists</div>
+
+  <!-- MASCOT: Fobby the key fob character -->
+  <div class="mascot-wrap">
+    <svg width="200" height="220" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shadow -->
+      <ellipse cx="100" cy="210" rx="52" ry="10" fill="#4a3728" opacity="0.15"/>
+      <!-- Body: rounded fob shape -->
+      <rect x="34" y="52" width="132" height="140" rx="30" fill="#c4603a"/>
+      <rect x="40" y="58" width="120" height="128" rx="26" fill="#e8896a"/>
+      <!-- Keyring hole at top -->
+      <circle cx="100" cy="52" r="16" fill="#4a3728"/>
+      <circle cx="100" cy="52" r="10" fill="#faf6ef"/>
+      <!-- Keyring link -->
+      <path d="M86 52 Q74 30 100 18 Q126 30 114 52" stroke="#4a3728" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <!-- Screen/face area -->
+      <rect x="52" y="80" width="96" height="72" rx="14" fill="#faf6ef"/>
+      <rect x="56" y="84" width="88" height="64" rx="11" fill="#fefcf7"/>
+      <!-- Eyes -->
+      <ellipse cx="80" cy="112" rx="10" ry="11" fill="#4a3728"/>
+      <ellipse cx="120" cy="112" rx="10" ry="11" fill="#4a3728"/>
+      <!-- Eye shine -->
+      <circle cx="84" cy="108" r="3.5" fill="white"/>
+      <circle cx="124" cy="108" r="3.5" fill="white"/>
+      <!-- Rosy cheeks -->
+      <ellipse cx="66" cy="122" rx="9" ry="6" fill="#e8a090" opacity="0.7"/>
+      <ellipse cx="134" cy="122" rx="9" ry="6" fill="#e8a090" opacity="0.7"/>
+      <!-- Big goofy smile -->
+      <path d="M76 130 Q100 150 124 130" stroke="#4a3728" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- Smile teeth -->
+      <path d="M84 135 Q100 148 116 135" fill="#fefcf7" stroke="none"/>
+      <!-- Little antenna/blip on top right of face -->
+      <circle cx="138" cy="88" r="5" fill="#f2d675"/>
+      <circle cx="138" cy="88" r="3" fill="#e6b84a"/>
+      <!-- Button at bottom -->
+      <rect x="74" y="162" width="52" height="18" rx="9" fill="#7a9e7e"/>
+      <rect x="78" y="165" width="44" height="12" rx="6" fill="#b5d4b8"/>
+      <!-- Tiny arms / nubs -->
+      <ellipse cx="34" cy="120" rx="14" ry="10" fill="#e8896a" transform="rotate(-20 34 120)"/>
+      <ellipse cx="166" cy="120" rx="14" ry="10" fill="#e8896a" transform="rotate(20 166 120)"/>
+      <!-- Blush lines for goofiness -->
+      <path d="M54 115 L60 118 L54 121" stroke="#c4603a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M146 115 L140 118 L146 121" stroke="#c4603a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <h1 class="hero-title">
+    Fob<br><span class="accent">Fob</span><br>Fob
+  </h1>
+  <p class="hero-tagline">your condo's cutest key fob duplicator ✨</p>
+
+  <div class="hero-cta">
+    <span class="hero-badge">Get your fobs duped 🗝️</span>
+    <span class="hero-badge-outline">How it works</span>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="services-strip">
+  <div class="strip-inner">
+    <span class="strip-item"><span class="strip-dot">✦</span> RFID fob duplication</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> garage remote cloning</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> combo fob + remote</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> condo bulk orders</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> same-day service</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> RFID fob duplication</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> garage remote cloning</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> combo fob + remote</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> condo bulk orders</span>
+    <span class="strip-item"><span class="strip-dot">✦</span> same-day service</span>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section class="about">
+  <div class="about-text">
+    <h2>we make <em>copies</em> of the little things</h2>
+    <p>Lost a fob? Need extras for the whole family? Managing a condo building? Fob Fob Fob duplicates your key fobs, RFID cards, and garage remotes — fast, affordable, and without the headache of going through your building management.</p>
+    <p>Based in Toronto. Serving condos, apartments, and anyone who's ever been locked out at 11pm.</p>
+    <div class="badge-row">
+      <span class="badge">125 kHz EM4100</span>
+      <span class="badge">MIFARE</span>
+      <span class="badge">HID Prox</span>
+      <span class="badge">433 MHz remotes</span>
+    </div>
+  </div>
+  <div class="about-card">
+
+    <div class="pricing-service">
+      <div class="pricing-header">
+        <span class="pricing-icon">🔑</span>
+        <span class="pricing-name">Basic RFID fob</span>
+      </div>
+      <div class="pricing-tiers">
+        <div class="tier">
+          <span class="tier-qty">1 fob</span>
+          <span class="tier-price">$40</span>
+          <span class="tier-save">&nbsp;</span>
+        </div>
+        <div class="tier">
+          <span class="tier-qty">2 fobs</span>
+          <span class="tier-price">$75</span>
+          <span class="tier-save">save $5</span>
+        </div>
+        <div class="tier">
+          <span class="tier-qty">5 fobs</span>
+          <span class="tier-price">$160</span>
+          <span class="tier-save">save $40</span>
+        </div>
+        <div class="tier best">
+          <span class="tier-qty">10 fobs</span>
+          <span class="tier-price">$300</span>
+          <span class="tier-save">save $100</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="pricing-divider">
+
+    <div class="pricing-service">
+      <div class="pricing-header">
+        <span class="pricing-icon">📡</span>
+        <span class="pricing-name">Garage remote clone</span>
+      </div>
+      <div class="pricing-tiers">
+        <div class="tier">
+          <span class="tier-qty">1 remote</span>
+          <span class="tier-price">$90</span>
+          <span class="tier-save">&nbsp;</span>
+        </div>
+        <div class="tier">
+          <span class="tier-qty">2 remotes</span>
+          <span class="tier-price">$170</span>
+          <span class="tier-save">save $10</span>
+        </div>
+        <div class="tier best">
+          <span class="tier-qty">5 remotes</span>
+          <span class="tier-price">$400</span>
+          <span class="tier-save">save $50</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="pricing-divider">
+
+    <div class="pricing-service">
+      <div class="pricing-header">
+        <span class="pricing-icon">✨</span>
+        <span class="pricing-name">Combo remote + RFID</span>
+      </div>
+      <div class="pricing-tiers">
+        <div class="tier">
+          <span class="tier-qty">1 set</span>
+          <span class="tier-price">$125</span>
+          <span class="tier-save">&nbsp;</span>
+        </div>
+        <div class="tier best">
+          <span class="tier-qty">2 sets</span>
+          <span class="tier-price">$225</span>
+          <span class="tier-save">save $25</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PHOTOS ══ -->
+<section class="photos-section">
+  <p class="section-label">our vibe</p>
+  <h2 class="section-title">tiny keys, <em>big feelings</em></h2>
+
+  <div class="photos-grid">
+
+    <!-- Photo 1: Wide hero - fobs on a coffee shop table -->
+    <div class="photo-card">
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Warm cafe table background -->
+        <rect width="600" height="300" fill="#d4a574"/>
+        <!-- Wood grain lines -->
+        <path d="M0 80 Q300 70 600 85" stroke="#c49060" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M0 160 Q200 150 600 168" stroke="#c49060" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M0 240 Q400 232 600 248" stroke="#c49060" stroke-width="1" fill="none" opacity="0.3"/>
+        <!-- Coffee cup shadow -->
+        <ellipse cx="460" cy="195" rx="55" ry="14" fill="#a0724a" opacity="0.3"/>
+        <!-- Coffee cup -->
+        <rect x="420" y="110" width="80" height="80" rx="8" fill="#faf6ef"/>
+        <rect x="426" y="116" width="68" height="68" rx="6" fill="#c4603a" opacity="0.15"/>
+        <!-- Coffee liquid -->
+        <ellipse cx="460" cy="140" rx="28" ry="12" fill="#6b3d1e"/>
+        <!-- Cup handle -->
+        <path d="M500 130 Q520 140 500 160" stroke="#faf6ef" stroke-width="8" fill="none"/>
+        <!-- Steam -->
+        <path d="M448 108 Q444 96 448 84" stroke="#faf6ef" stroke-width="2.5" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M460 104 Q456 88 460 76" stroke="#faf6ef" stroke-width="2.5" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M472 108 Q476 96 472 84" stroke="#faf6ef" stroke-width="2.5" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <!-- Fob 1 (terracotta) -->
+        <rect x="80" y="100" width="90" height="130" rx="20" fill="#c4603a"/>
+        <rect x="86" y="106" width="78" height="118" rx="16" fill="#e8896a"/>
+        <circle cx="125" cy="100" r="12" fill="#4a3728"/>
+        <circle cx="125" cy="100" r="7" fill="#faf6ef"/>
+        <rect x="94" y="120" width="62" height="50" rx="10" fill="#faf6ef"/>
+        <ellipse cx="112" cy="142" rx="7" ry="8" fill="#4a3728"/>
+        <ellipse cx="138" cy="142" rx="7" ry="8" fill="#4a3728"/>
+        <circle cx="115" cy="138" r="2.5" fill="white"/>
+        <circle cx="141" cy="138" r="2.5" fill="white"/>
+        <path d="M109 155 Q125 168 141 155" stroke="#4a3728" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="102" y="180" width="46" height="14" rx="7" fill="#7a9e7e"/>
+        <!-- Fob 2 (sage) on its side -->
+        <g transform="translate(200, 160) rotate(-15)">
+          <rect x="0" y="0" width="80" height="110" rx="16" fill="#7a9e7e"/>
+          <rect x="5" y="5" width="70" height="100" rx="12" fill="#b5d4b8"/>
+          <circle cx="40" cy="0" r="10" fill="#4a3728"/>
+          <circle cx="40" cy="0" r="6" fill="#faf6ef"/>
+          <rect x="12" y="18" width="56" height="40" rx="8" fill="#faf6ef"/>
+          <ellipse cx="29" cy="34" rx="6" ry="7" fill="#4a3728"/>
+          <ellipse cx="51" cy="34" rx="6" ry="7" fill="#4a3728"/>
+          <circle cx="32" cy="30" r="2" fill="white"/>
+          <circle cx="54" cy="30" r="2" fill="white"/>
+          <path d="M26 44 Q40 54 54 44" stroke="#4a3728" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Small card fob -->
+        <g transform="translate(310, 80) rotate(8)">
+          <rect x="0" y="0" width="110" height="70" rx="10" fill="#f2d675"/>
+          <rect x="6" y="6" width="98" height="58" rx="7" fill="#faf6ef" opacity="0.6"/>
+          <rect x="12" y="14" width="40" height="28" rx="4" fill="#e6b84a"/>
+          <circle cx="80" cy="35" r="18" fill="#e8896a" opacity="0.4"/>
+          <circle cx="80" cy="35" r="10" fill="#c4603a" opacity="0.5"/>
+          <text x="55" y="62" font-family="Georgia, serif" font-size="8" fill="#4a3728" opacity="0.7">FOB FOB FOB</text>
+        </g>
+        <!-- Label -->
+        <rect x="16" y="258" width="200" height="30" rx="15" fill="#faf6ef" opacity="0.9"/>
+        <text x="116" y="278" font-family="Georgia, serif" font-size="13" fill="#4a3728" text-anchor="middle">we copy the little guys ✦</text>
+      </svg>
+      <span class="photo-label">our babies 🗝️</span>
+    </div>
+
+    <!-- Photo 2: Mascot with steam -->
+    <div class="photo-card">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="300" fill="#faf6ef"/>
+        <!-- Polka dot background -->
+        <circle cx="30" cy="30" r="8" fill="#e8c4b4" opacity="0.5"/>
+        <circle cx="90" cy="20" r="5" fill="#f2d675" opacity="0.6"/>
+        <circle cx="160" cy="40" r="9" fill="#b5d4b8" opacity="0.5"/>
+        <circle cx="250" cy="25" r="6" fill="#e8c4b4" opacity="0.4"/>
+        <circle cx="20" cy="110" r="6" fill="#f2d675" opacity="0.5"/>
+        <circle cx="270" cy="90" r="8" fill="#b5d4b8" opacity="0.4"/>
+        <circle cx="280" cy="200" r="7" fill="#e8c4b4" opacity="0.5"/>
+        <circle cx="15" cy="240" r="9" fill="#f2d675" opacity="0.4"/>
+        <!-- Big mascot centered -->
+        <rect x="82" y="90" width="136" height="150" rx="28" fill="#c4603a"/>
+        <rect x="88" y="96" width="124" height="138" rx="24" fill="#e8896a"/>
+        <circle cx="150" cy="90" r="18" fill="#4a3728"/>
+        <circle cx="150" cy="90" r="11" fill="#faf6ef"/>
+        <!-- Keyring arc -->
+        <path d="M133 90 Q118 62 150 46 Q182 62 167 90" stroke="#4a3728" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <!-- Face screen -->
+        <rect x="100" y="114" width="100" height="76" rx="14" fill="#fefcf7"/>
+        <!-- Big surprised eyes -->
+        <ellipse cx="128" cy="146" rx="12" ry="13" fill="#4a3728"/>
+        <ellipse cx="172" cy="146" rx="12" ry="13" fill="#4a3728"/>
+        <circle cx="133" cy="140" r="4" fill="white"/>
+        <circle cx="177" cy="140" r="4" fill="white"/>
+        <!-- Happy squiggle mouth -->
+        <path d="M124 166 Q138 180 150 172 Q162 164 176 172" stroke="#4a3728" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- Rosy cheeks -->
+        <ellipse cx="108" cy="158" rx="10" ry="7" fill="#e8a090" opacity="0.65"/>
+        <ellipse cx="192" cy="158" rx="10" ry="7" fill="#e8a090" opacity="0.65"/>
+        <!-- Yellow dot -->
+        <circle cx="192" cy="120" r="6" fill="#f2d675"/>
+        <!-- Button -->
+        <rect x="120" y="202" width="60" height="20" rx="10" fill="#7a9e7e"/>
+        <rect x="124" y="206" width="52" height="12" rx="6" fill="#b5d4b8"/>
+        <!-- Arms -->
+        <ellipse cx="82" cy="162" rx="16" ry="11" fill="#e8896a" transform="rotate(-25 82 162)"/>
+        <ellipse cx="218" cy="162" rx="16" ry="11" fill="#e8896a" transform="rotate(25 218 162)"/>
+        <!-- Stars around -->
+        <text x="40" y="130" font-size="22" fill="#f2d675">✦</text>
+        <text x="230" y="110" font-size="18" fill="#b5d4b8">✦</text>
+        <text x="240" y="200" font-size="14" fill="#e8896a">✦</text>
+        <!-- Caption -->
+        <rect x="50" y="262" width="200" height="26" rx="13" fill="#c4603a"/>
+        <text x="150" y="280" font-family="Georgia, serif" font-size="12" fill="#faf6ef" text-anchor="middle">that's Fobby! 👋</text>
+      </svg>
+      <span class="photo-label">meet Fobby 🤍</span>
+    </div>
+
+    <!-- Photo 3: Process shot -->
+    <div class="photo-card">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Dark moody bg -->
+        <rect width="300" height="300" fill="#2a1f1a"/>
+        <rect width="300" height="300" fill="#3d2b1f" opacity="0.5"/>
+        <!-- Grid lines -->
+        <line x1="0" y1="60" x2="300" y2="60" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="0" y1="120" x2="300" y2="120" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="0" y1="180" x2="300" y2="180" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="0" y1="240" x2="300" y2="240" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="60" y1="0" x2="60" y2="300" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="120" y1="0" x2="120" y2="300" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="180" y1="0" x2="180" y2="300" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <line x1="240" y1="0" x2="240" y2="300" stroke="#4a3728" stroke-width="0.5" opacity="0.6"/>
+        <!-- iCopy device illustration -->
+        <rect x="80" y="80" width="140" height="100" rx="12" fill="#3a3028"/>
+        <rect x="86" y="86" width="128" height="88" rx="9" fill="#2a2018"/>
+        <!-- Screen -->
+        <rect x="96" y="94" width="108" height="64" rx="7" fill="#0a1a0a"/>
+        <!-- Screen glow -->
+        <rect x="98" y="96" width="104" height="60" rx="5" fill="#1a3a1a" opacity="0.8"/>
+        <!-- Screen text lines -->
+        <rect x="104" y="104" width="60" height="4" rx="2" fill="#4aff6a" opacity="0.8"/>
+        <rect x="104" y="114" width="80" height="4" rx="2" fill="#4aff6a" opacity="0.6"/>
+        <rect x="104" y="124" width="50" height="4" rx="2" fill="#4aff6a" opacity="0.4"/>
+        <rect x="104" y="134" width="70" height="4" rx="2" fill="#4aff6a" opacity="0.7"/>
+        <text x="150" y="148" font-family="monospace" font-size="9" fill="#4aff6a" text-anchor="middle" opacity="0.9">COPYING...</text>
+        <!-- Side button -->
+        <rect x="220" y="104" width="8" height="20" rx="4" fill="#4a3728"/>
+        <!-- Fob on reader -->
+        <rect x="106" y="190" width="88" height="60" rx="14" fill="#c4603a" opacity="0.9"/>
+        <rect x="112" y="196" width="76" height="48" rx="10" fill="#e8896a"/>
+        <!-- Scan waves -->
+        <path d="M70 200 Q80 180 70 160" stroke="#4aff6a" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+        <path d="M56 210 Q72 180 56 150" stroke="#4aff6a" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+        <path d="M230 200 Q220 180 230 160" stroke="#4aff6a" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+        <path d="M244 210 Q228 180 244 150" stroke="#4aff6a" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+        <!-- Label -->
+        <rect x="30" y="264" width="240" height="24" rx="12" fill="#c4603a" opacity="0.9"/>
+        <text x="150" y="280" font-family="Georgia, serif" font-size="11" fill="#faf6ef" text-anchor="middle">scanning your fob ✦</text>
+      </svg>
+      <span class="photo-label">the magic ⚡</span>
+    </div>
+
+    <!-- Photo 4: Before/After -->
+    <div class="photo-card">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="300" fill="#f2d675"/>
+        <!-- Wavy divider -->
+        <path d="M0 150 Q75 130 150 150 Q225 170 300 150 L300 300 L0 300 Z" fill="#e6b84a" opacity="0.4"/>
+        <!-- BEFORE label -->
+        <text x="75" y="46" font-family="Georgia, serif" font-size="16" fill="#4a3728" text-anchor="middle" font-style="italic">before</text>
+        <!-- Sad cracked fob -->
+        <rect x="36" y="60" width="78" height="110" rx="16" fill="#8b6553"/>
+        <rect x="42" y="66" width="66" height="98" rx="12" fill="#a0795e"/>
+        <circle cx="75" cy="60" r="11" fill="#4a3728"/>
+        <circle cx="75" cy="60" r="7" fill="#faf6ef"/>
+        <!-- Crack lines -->
+        <path d="M50 100 L80 130 L65 160" stroke="#4a3728" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M70 90 L95 120" stroke="#4a3728" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <!-- Sad face -->
+        <ellipse cx="64" cy="110" rx="7" ry="8" fill="#4a3728"/>
+        <ellipse cx="86" cy="110" rx="7" ry="8" fill="#4a3728"/>
+        <path d="M60 130 Q75 120 90 130" stroke="#4a3728" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Sad tear drop -->
+        <ellipse cx="60" cy="118" rx="3" ry="4" fill="#b5d4b8" opacity="0.9"/>
+        <!-- AFTER label -->
+        <text x="225" y="46" font-family="Georgia, serif" font-size="16" fill="#4a3728" text-anchor="middle" font-style="italic">after</text>
+        <!-- Happy shiny fob -->
+        <rect x="186" y="60" width="78" height="110" rx="16" fill="#c4603a"/>
+        <rect x="192" y="66" width="66" height="98" rx="12" fill="#e8896a"/>
+        <circle cx="225" cy="60" r="11" fill="#4a3728"/>
+        <circle cx="225" cy="60" r="7" fill="#faf6ef"/>
+        <!-- Sparkles -->
+        <text x="178" y="70" font-size="14" fill="#faf6ef">✦</text>
+        <text x="254" y="80" font-size="10" fill="#faf6ef">✦</text>
+        <text x="264" y="60" font-size="12" fill="#faf6ef">✦</text>
+        <!-- Happy face -->
+        <ellipse cx="214" cy="110" rx="8" ry="9" fill="#4a3728"/>
+        <ellipse cx="236" cy="110" rx="8" ry="9" fill="#4a3728"/>
+        <circle cx="218" cy="106" r="3" fill="white"/>
+        <circle cx="240" cy="106" r="3" fill="white"/>
+        <path d="M209 128 Q225 142 241 128" stroke="#4a3728" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Cheeks -->
+        <ellipse cx="204" cy="120" rx="8" ry="6" fill="#faf6ef" opacity="0.5"/>
+        <ellipse cx="246" cy="120" rx="8" ry="6" fill="#faf6ef" opacity="0.5"/>
+        <!-- Arrow between -->
+        <path d="M120 115 L180 115" stroke="#4a3728" stroke-width="3" fill="none" stroke-linecap="round" marker-end="url(#ah)"/>
+        <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#4a3728" stroke-width="1.5"/></marker></defs>
+        <text x="150" y="108" font-family="Georgia, serif" font-size="11" fill="#4a3728" text-anchor="middle">fob fob fob</text>
+        <!-- Bottom label -->
+        <rect x="50" y="262" width="200" height="26" rx="13" fill="#4a3728"/>
+        <text x="150" y="280" font-family="Georgia, serif" font-size="11" fill="#f2d675" text-anchor="middle">we bring the joy back 🤍</text>
+      </svg>
+      <span class="photo-label">the glow-up ✨</span>
+    </div>
+
+    <!-- Photo 5: Latte art style -->
+    <div class="photo-card">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Warm creamy bg -->
+        <rect width="300" height="300" fill="#fefcf7"/>
+        <circle cx="150" cy="150" r="135" fill="#faf0e0"/>
+        <circle cx="150" cy="150" r="118" fill="#f5e8d0"/>
+        <!-- Coffee cup rim/saucer -->
+        <ellipse cx="150" cy="270" rx="100" ry="18" fill="#d4a574"/>
+        <ellipse cx="150" cy="265" rx="95" ry="15" fill="#e8c49a"/>
+        <!-- Cup body -->
+        <path d="M55 140 Q60 265 150 265 Q240 265 245 140 Z" fill="#faf0e0"/>
+        <path d="M60 140 Q65 258 150 258 Q235 258 240 140 Z" fill="#fefcf7"/>
+        <!-- Coffee surface / latte art -->
+        <ellipse cx="150" cy="142" rx="88" ry="22" fill="#c8956a"/>
+        <ellipse cx="150" cy="140" rx="85" ry="19" fill="#d4a06e"/>
+        <!-- Latte art: rosette / fob shape drawn in milk -->
+        <ellipse cx="150" cy="138" rx="40" ry="10" fill="#f5e0c0" opacity="0.7"/>
+        <!-- Fobby face drawn in latte art -->
+        <ellipse cx="138" cy="136" rx="5" ry="6" fill="#6b3d1e" opacity="0.8"/>
+        <ellipse cx="162" cy="136" rx="5" ry="6" fill="#6b3d1e" opacity="0.8"/>
+        <path d="M136 146 Q150 155 164 146" stroke="#6b3d1e" stroke-width="2" fill="none" opacity="0.8" stroke-linecap="round"/>
+        <!-- Milk swirl rings -->
+        <path d="M66 140 Q90 115 150 118 Q210 115 234 140" stroke="#f5e0c0" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M80 145 Q100 130 150 132 Q200 130 220 145" stroke="#f5e0c0" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <!-- Cup handle -->
+        <path d="M244 155 Q285 165 285 200 Q285 235 244 240" stroke="#e8c49a" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <path d="M244 155 Q278 165 278 200 Q278 232 244 240" stroke="#fefcf7" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <!-- Text on cup -->
+        <text x="150" y="230" font-family="Georgia, serif" font-size="13" fill="#c4603a" text-anchor="middle" font-style="italic">fob fob fob</text>
+        <text x="150" y="246" font-family="Georgia, serif" font-size="9" fill="#8b6553" text-anchor="middle">toronto's fob shop</text>
+        <!-- Steam -->
+        <path d="M110 118 Q106 100 110 82" stroke="#c8956a" stroke-width="2.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+        <path d="M150 114 Q146 94 150 74" stroke="#c8956a" stroke-width="2.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+        <path d="M190 118 Q194 100 190 82" stroke="#c8956a" stroke-width="2.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+        <!-- Label -->
+        <rect x="54" y="264" width="192" height="0" rx="0" fill="none"/>
+      </svg>
+      <span class="photo-label">we run on coffee ☕</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how" id="how">
+  <p class="section-label">super easy</p>
+  <h2 class="section-title">three steps, <em>done</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>bring your fob</h3>
+      <p>Bring in your original fob, card, or remote. We can also work from photos to help identify your system first.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>we scan it</h3>
+      <p>We read the chip data in seconds using our professional cloning equipment. Most fobs take under 5 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>take your copies</h3>
+      <p>Walk away with fresh duplicates — fob, remote, or combo. No appointment needed, most orders ready in minutes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-section" id="contact">
+  <h2>ready to <em>duplicate?</em></h2>
+  <p>text us, dm us, or just show up with your fob 🗝️</p>
+  <div class="contact-row">
+    <span class="contact-pill">📞 (613) 985-5196</span>
+    <span class="contact-pill">📍 Toronto, ON</span>
+  </div>
+</section>
+
+<footer>
+  <p>made with 🤍 in Toronto &nbsp;·&nbsp; <span>Fob Fob Fob</span> © 2025 &nbsp;·&nbsp; your condo's best friend</p>
+</footer>
+
+</body>
+</html>
